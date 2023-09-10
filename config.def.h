@@ -84,7 +84,7 @@ static const Key keys[] = {
         { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
         { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
         { MODKEY,                       XK_o,      spawn,            SHCMD("slock") },
-        { MODKEY,                       XK_a,      spawn,            SHCMD("xmenu-start") },
+        { MODKEY,                       XK_x,      spawn,          {.v = xmenu-start }},
         { MODKEY,                       XK_b,      togglebar,      {0} },
         { MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
         { MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
