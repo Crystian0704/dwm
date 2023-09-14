@@ -140,6 +140,8 @@ static const Key keys[] = {
         { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
         { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
         { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+        { MODKEY, Button4, view, {.ui = 1 << TAG} }, \
+        { MODKEY, Button5, view, {.ui = 1 << TAG} },
         TAGKEYS(                        XK_1,                      0)
         TAGKEYS(                        XK_2,                      1)
         TAGKEYS(                        XK_3,                      2)
@@ -167,7 +169,6 @@ static const Button buttons[] = {
         { ClkTagBar,            0,              Button3,        toggleview,     {0} },
         { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
         { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-        { ClkTagBar,            MODKEY,         Button5,        view, {.ui = 1 << 3} }, // Mude "Button4" para "Button5" se o scroll para baixo também for usado
-
+        
 };
 
