@@ -735,7 +735,8 @@ drawbar(Monitor *m)
 	}
 
 	for (c = m->clients; c; c = c->next) {
-		occ |= c->tags;
+		if (strcmp(c->name, panel_str))
+			occ |= c->tags;
 		if (c->isurgent)
 			urg |= c->tags;
 	}
@@ -754,7 +755,7 @@ drawbar(Monitor *m)
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
 	if ((w = m->ww - tw - x) > bh) {
-		if (m->sel) {
+		if (m->sel && strcmp(m->sel->name, panel_str)) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
 			if (m->sel->isfloating)
@@ -830,9 +831,12 @@ expose(XEvent *e)
 void
 focus(Client *c)
 {
-	if (!c || !ISVISIBLE(c))
+	if (!c || !ISVISIBLE(c)) {
 		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
-	if (selmon->sel && selmon->sel != c)
+	if (c && !strcmp(c->name, panel_str))
+		c = NULL;
+	}
+	if (!selmon->sel || !strcmp(selmon->sel->name, panel_str))
 		unfocus(selmon->sel, 0);
 	if (c) {
 		if (c->mon != selmon)
@@ -1091,7 +1095,10 @@ manage(Window w, XWindowAttributes *wa)
 		c->y = c->mon->wy + c->mon->wh - HEIGHT(c);
 	c->x = MAX(c->x, c->mon->wx);
 	c->y = MAX(c->y, c->mon->wy);
-	c->bw = borderpx;
+	if (!strcmp(c->name, panel_str))
+		c->bw = 0;
+	else
+		c->bw = borderpx;
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
@@ -1721,7 +1728,10 @@ showhide(Client *c)
 	} else {
 		/* hide clients bottom up */
 		showhide(c->snext);
-		XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
+		/* don't hide window if name match panel_str */
+		if (strcmp(c->name, panel_str)) {
+			XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
+		}
 	}
 }
 
@@ -1748,6 +1758,8 @@ spawn(const Arg *arg)
 void
 tag(const Arg *arg)
 {
+	if (selmon && selmon->sel && !strcmp(selmon->sel->name, panel_str))
+		return;
 	if (selmon->sel && arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
 		focus(NULL);
