@@ -167,5 +167,7 @@ static const Button buttons[] = {
         { ClkTagBar,            0,              Button3,        toggleview,     {0} },
         { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
         { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+        { ClkTagBar,            MODKEY,         Button5,        view, {.ui = 1 << 3} }, // Mude "Button4" para "Button5" se o scroll para baixo também for usado
+
 };
 
