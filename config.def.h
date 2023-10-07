@@ -6,9 +6,8 @@ static const unsigned int gappiv    = 5;       /* vert inner gap between windows
 static const unsigned int gappoh    = 5;       /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 5;       /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
-static const int showbar            = 0;        /* 0 means no bar */
+static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *panel_str        = "tint2";
 char *fonts[]                       = { "ProFont IIx Nerd Font Propo:size=10:autohint=true:antialias=true", "Noto Color Emoji:pixelsize=10:autohint=true:antialias=true" };
 static const char *dmenufont[]      = { "ProFont IIx Nerd Font Propo:size=10:autohint=true:antialias=true", "Noto Color Emoji:pixelsize=10:autohint=true:antialias=true" };
 static const char col_gray1[]       = "#222222";
@@ -31,7 +30,9 @@ static const Rule rules[] = {
          *      WM_NAME(STRING) = title
          */
         /* class      instance    title       tags mask     isfloating   monitor */
-        { "Tint2",    NULL,       NULL,       511,          0,           -1 }, // Show tint2 on every page
+        { "Firefox",  NULL,       NULL,       1 << 2,       0,           -1 },
+        { "Google-chrome",  NULL,       NULL,       1 << 3,       0,           -1 },
+        { "Thunar",  NULL,       NULL,       1 << 4,       0,           -1 },
 };
 
 /* layout(s) */
@@ -46,8 +47,8 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
         /* symbol     arrange function */
-        { "[M]",      monocle },
         { "[]=",      tile },    /* first entry is default */
+        { "[M]",      monocle },
         { "[@]",      spiral },
         { "[\\]",     dwindle },
         { "H[]",      deck },
@@ -78,7 +79,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "terminator", NULL };
 static const char *jgmenucmd[]  = { "jgmenu_run", NULL };
 
 
