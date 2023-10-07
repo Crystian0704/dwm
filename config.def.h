@@ -8,6 +8,7 @@ static const unsigned int gappov    = 5;       /* vert outer gap between windows
 static       int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *panel_str        = "tint2";
 char *fonts[]                       = { "ProFont IIx Nerd Font Propo:size=10:autohint=true:antialias=true", "Noto Color Emoji:pixelsize=10:autohint=true:antialias=true" };
 static const char dmenufont[]      = { "ProFont IIx Nerd Font Propo:size=10:autohint=true:antialias=true" };
 static const char col_gray1[]       = "#222222";
@@ -30,6 +31,7 @@ static const Rule rules[] = {
          *      WM_NAME(STRING) = title
          */
         /* class      instance    title       tags mask     isfloating   monitor */
+        { "Tint2",    NULL,       NULL,       511,          0,           -1 }, // Show tint2 on every page
         { "Firefox",  NULL,       NULL,       1 << 2,       0,           -1 },
         { "Google-chrome",  NULL,       NULL,       1 << 3,       0,           -1 },
         { "Thunar",  NULL,       NULL,       1 << 4,       0,           -1 },
